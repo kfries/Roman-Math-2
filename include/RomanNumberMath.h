@@ -6,6 +6,7 @@
 typedef struct {
    char Symbol;
    int Value;
+   int NextValue;
 } RomanDigit;
 
 typedef struct {

@@ -454,6 +454,15 @@ START_TEST(consolidate_like_digits_function) {
    ck_assert_str_eq("MDCLXVI", to_string(rn));
 } END_TEST
 
+/************** Consolidation: Five I should be written as One V **************/
+START_TEST(consolidate_five_i_to_v) {
+   RomanNumber rn = newRomanNumber("IIIII");
+
+   rnConsolidate(&rn);
+
+   ck_assert_str_eq("V", to_string(rn));
+} END_TEST
+
 Suite * roman_number_math_suite(void) {
    Suite *testSuite;
    TCase *tc_roman_digit, *tc_roman_number, *tc_debug, *tc_remove_sub, *tc_concat, *tc_sort, *tc_consolidate;
@@ -543,6 +552,7 @@ Suite * roman_number_math_suite(void) {
    tc_consolidate = tcase_create("Sort Digits");
 
    tcase_add_test(tc_consolidate, consolidate_like_digits_function);
+   tcase_add_test(tc_consolidate, consolidate_five_i_to_v);
 
    suite_add_tcase(testSuite, tc_consolidate);
 

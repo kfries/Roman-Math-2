@@ -8,13 +8,13 @@
 #define NUMDIGITS 7
 
 RomanDigit allowedDigits[NUMDIGITS] = {
-   {'I', 1},
-   {'V', 5},
-   {'X', 10},
-   {'L', 50},
-   {'C', 100},
-   {'D', 500},
-   {'M', 1000}
+   {'I', 1,        5},
+   {'V', 5,        2},
+   {'X', 10,       5},
+   {'L', 50,       2},
+   {'C', 100,      5},
+   {'D', 500,      2},
+   {'M', 1000, 99999}
 };
 
 RomanDigit newRomanDigit(char c) {
@@ -151,5 +151,29 @@ void rnSort(RomanNumber *number) {
 }
 
 void rnConsolidate(RomanNumber *number) {
+   int counts[NUMDIGITS];
+   int idx, idx2;
+
+   for (idx = 0; idx < NUMDIGITS; idx++) counts[idx] = 0;
+
+   for (idx = 0; idx < NUMDIGITS; idx++)
+      for (idx2 = 0; idx2 < number->Size; idx2++)
+         if (allowedDigits[idx].Symbol == number->Digit[idx2].Symbol)
+            counts[idx]++;
+
+   for (idx = 0; idx < NUMDIGITS; idx++)
+      while (counts[idx] >= allowedDigits[idx].NextValue) {
+         counts[idx+1]++;
+         counts[idx] -= allowedDigits[idx].NextValue;
+      }
+
+   number->Size = 0;
+
+   for (idx = (NUMDIGITS-1); idx >= 0; idx--)
+      while (counts[idx] > 0) {
+         number->Digit[number->Size++] = allowedDigits[idx];
+         counts[idx]--;
+      }
+
    return;
 }
