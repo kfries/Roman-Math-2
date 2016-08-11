@@ -584,6 +584,15 @@ START_TEST(reintroduce_subtractive_dcccc_should_be_cm) {
    ck_assert_str_eq("CM", to_string(rn));
 } END_TEST
 
+/************* Test a complex number with multiple substitutions **************/
+START_TEST(reintroduce_subtractive_complex_number) {
+   RomanNumber rn = newRomanNumber("MMMDCCCCLXXXXVIII");
+
+   rnRewriteSubtractive(&rn);
+
+   ck_assert_str_eq("MMMCMXCVIII", to_string(rn));
+} END_TEST
+
 Suite * roman_number_math_suite(void) {
    Suite *testSuite;
    TCase *tc_roman_digit, *tc_roman_number, *tc_debug, *tc_remove_sub, *tc_concat, *tc_sort, *tc_consolidate;
@@ -694,6 +703,7 @@ Suite * roman_number_math_suite(void) {
    tcase_add_test(tc_add_sub_not, reintroduce_subtractive_lxxxx_should_be_xc);
    tcase_add_test(tc_add_sub_not, reintroduce_subtractive_cccc_should_be_cd);
    tcase_add_test(tc_add_sub_not, reintroduce_subtractive_dcccc_should_be_cm);
+   tcase_add_test(tc_add_sub_not, reintroduce_subtractive_complex_number);
 
    suite_add_tcase(testSuite, tc_add_sub_not);
 
