@@ -21,5 +21,6 @@ char *to_string(RomanNumber);
 
 void rnRemoveSubtractive(RomanNumber *);
 RomanNumber rnConcatinate(RomanNumber, RomanNumber);
+void rnSort(RomanNumber *);
 
 #endif

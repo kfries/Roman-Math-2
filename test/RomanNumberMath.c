@@ -384,9 +384,21 @@ START_TEST(concatinate_all_the_digits_of_two_complex_values) {
    ck_assert_str_eq("MDCCCCLXXXXVIIIIMDCCCCLXXXXVIIII", to_string(concat));
 } END_TEST
 
+/*******************************************************************************
+ * Sort the symbols in order from highest-to-lowest                            *
+ ******************************************************************************/
+
+/************** Sort the symbols in order from highest-to-lowest **************/
+START_TEST(create_function_to_sort_digits_highest_to_lowest) {
+   RomanNumber rn = newRomanNumber("I");
+
+   rnSort(&rn);
+   ck_assert_str_eq("I", to_string(rn));
+} END_TEST
+
 Suite * roman_number_math_suite(void) {
    Suite *testSuite;
-   TCase *tc_roman_digit, *tc_roman_number, *tc_debug, *tc_remove_sub, *tc_concat;
+   TCase *tc_roman_digit, *tc_roman_number, *tc_debug, *tc_remove_sub, *tc_concat, *tc_sort;
 
    testSuite = suite_create("Roman Math 2");
 
@@ -433,7 +445,7 @@ Suite * roman_number_math_suite(void) {
 
    suite_add_tcase(testSuite, tc_debug);
 
-   /* Testing Debug/Display functions */
+   /* Testing functions that remove subtractive notation */
    tc_remove_sub = tcase_create("Remove Subtractive Notation");
 
    tcase_add_test(tc_remove_sub, substitute_for_any_subtractives_in_value);
@@ -444,8 +456,8 @@ Suite * roman_number_math_suite(void) {
    
    suite_add_tcase(testSuite, tc_remove_sub);
 
-   /* Testing Debug/Display functions */
-   tc_concat= tcase_create("Remove Subtractive Notation");
+   /* Testing functions that concatinate two values*/
+   tc_concat = tcase_create("Concatinate Two Values");
 
    tcase_add_test(tc_concat, concatinate_all_the_digits_of_two_numbers_into_a_new_value);
    tcase_add_test(tc_concat, concatinate_all_the_digits_two_single_digit_values);
@@ -456,6 +468,13 @@ Suite * roman_number_math_suite(void) {
    tcase_add_test(tc_concat, concatinate_all_the_digits_of_two_complex_values);
 
    suite_add_tcase(testSuite, tc_concat);
+
+   /* Testing functions to sort the digits*/
+   tc_sort = tcase_create("Sort Digits");
+
+   tcase_add_test(tc_sort, create_function_to_sort_digits_highest_to_lowest);
+
+   suite_add_tcase(testSuite, tc_sort);
 
    return testSuite;
 }

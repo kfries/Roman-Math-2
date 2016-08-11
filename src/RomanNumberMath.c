@@ -127,3 +127,7 @@ RomanNumber rnConcatinate(RomanNumber first, RomanNumber second) {
 
    return returnValue;
 }
+
+void rnSort(RomanNumber *number) {
+   return;
+}
