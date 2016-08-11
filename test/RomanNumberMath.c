@@ -619,6 +619,17 @@ START_TEST(test_add_function_with_simple_math_5_plus_2_equals_7) {
    ck_assert_int_eq(7, to_a(sum));
 } END_TEST
 
+/************* Test a complex number with multiple substitutions **************/
+START_TEST(test_add_function_with_moderately_complex_numbers_15_plus_17_equals_32) {
+   RomanNumber rn1 = newRomanNumber("XV");
+   RomanNumber rn2 = newRomanNumber("XVII");
+
+   RomanNumber sum = rnAdd(rn1, rn2);
+
+   ck_assert_str_eq("XXXII",  to_string(sum));
+   ck_assert_int_eq(32, to_a(sum));
+} END_TEST
+
 Suite * roman_number_math_suite(void) {
    Suite *testSuite;
    TCase *tc_roman_digit, *tc_roman_number, *tc_debug, *tc_remove_sub, *tc_concat, *tc_sort, *tc_consolidate;
@@ -738,6 +749,7 @@ Suite * roman_number_math_suite(void) {
 
    tcase_add_test(tc_add, create_function_to_add_two_numbers);
    tcase_add_test(tc_add, test_add_function_with_simple_math_5_plus_2_equals_7);
+   tcase_add_test(tc_add, test_add_function_with_moderately_complex_numbers_15_plus_17_equals_32);
 
    suite_add_tcase(testSuite, tc_add);
 
