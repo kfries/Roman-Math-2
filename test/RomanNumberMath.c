@@ -608,6 +608,17 @@ START_TEST(create_function_to_add_two_numbers) {
    ck_assert_int_eq(2, to_a(sum));
 } END_TEST
 
+/************* Test a complex number with multiple substitutions **************/
+START_TEST(test_add_function_with_simple_math_5_plus_2_equals_7) {
+   RomanNumber rn1 = newRomanNumber("V");
+   RomanNumber rn2 = newRomanNumber("II");
+
+   RomanNumber sum = rnAdd(rn1, rn2);
+
+   ck_assert_str_eq("VII",  to_string(sum));
+   ck_assert_int_eq(7, to_a(sum));
+} END_TEST
+
 Suite * roman_number_math_suite(void) {
    Suite *testSuite;
    TCase *tc_roman_digit, *tc_roman_number, *tc_debug, *tc_remove_sub, *tc_concat, *tc_sort, *tc_consolidate;
@@ -726,6 +737,7 @@ Suite * roman_number_math_suite(void) {
    tc_add = tcase_create("Rewrite With Subractive Notation");
 
    tcase_add_test(tc_add, create_function_to_add_two_numbers);
+   tcase_add_test(tc_add, test_add_function_with_simple_math_5_plus_2_equals_7);
 
    suite_add_tcase(testSuite, tc_add);
 
