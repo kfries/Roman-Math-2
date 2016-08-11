@@ -179,6 +179,43 @@ void rnConsolidate(RomanNumber *number) {
 }
 
 void rnRewriteSubtractive(RomanNumber *number) {
+   int *counts = getDigitFrequencyCounts(number);
+   int subtractiveFlag[NUMDIGITS];
+   int idx;
+
+   for (idx = 0; idx < NUMDIGITS; idx++) subtractiveFlag[idx] = 0;
+
+   for (idx = 2; idx < NUMDIGITS; idx += 2) {
+      if ((counts[idx-2] >= (allowedDigits[idx-2].NextValue-1)) && (counts[idx-1] >= (allowedDigits[idx-1].NextValue-1))) {
+         subtractiveFlag[idx] = 1;
+         counts[idx-2] -= (allowedDigits[idx-2].NextValue-1);
+         counts[idx-1] -= (allowedDigits[idx-1].NextValue-1);
+      }
+      
+      if (counts[idx-2] >= (allowedDigits[idx-2].NextValue-1)) {
+         subtractiveFlag[idx-1] = 1;
+         counts[idx-2] -= (allowedDigits[idx-2].NextValue-1);
+      }
+   }
+
+   number->Size = 0;
+
+   for (idx = (NUMDIGITS-1); idx >= 0; idx--) {
+      while (counts[idx] > 0) {
+         number->Digit[number->Size++] = allowedDigits[idx];
+         counts[idx]--;
+      }
+
+      if (subtractiveFlag[idx]) {
+         RomanDigit digit = allowedDigits[idx];
+         int modifierOffset = (idx % 2) == 0 ? 2 : 1;
+         RomanDigit modifier = allowedDigits[idx-modifierOffset];
+
+         number->Digit[number->Size++] = modifier;
+         number->Digit[number->Size++] = digit;
+      }
+   }
+
    return;
 }
 
