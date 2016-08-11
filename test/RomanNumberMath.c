@@ -432,6 +432,15 @@ START_TEST(sort_test_multiple_digits_out_of_order) {
    ck_assert_str_eq("XVVIIIII", to_string(rn));
 } END_TEST
 
+/*********************** Sort Test: Sort Complex Values ***********************/
+START_TEST(sort_test_complex_values) {
+   RomanNumber rn = newRomanNumber("MDCCCCLXXXXVIIIIMDCCCCLXXXXVIIII");
+
+   rnSort(&rn);
+
+   ck_assert_str_eq("MMDDCCCCCCCCLLXXXXXXXXVVIIIIIIII", to_string(rn));
+} END_TEST
+
 Suite * roman_number_math_suite(void) {
    Suite *testSuite;
    TCase *tc_roman_digit, *tc_roman_number, *tc_debug, *tc_remove_sub, *tc_concat, *tc_sort;
@@ -513,6 +522,7 @@ Suite * roman_number_math_suite(void) {
    tcase_add_test(tc_sort, sort_test_small_simple_value);
    tcase_add_test(tc_sort, sort_test_resulting_in_non_standard_value);
    tcase_add_test(tc_sort, sort_test_multiple_digits_out_of_order);
+   tcase_add_test(tc_sort, sort_test_complex_values);
 
    suite_add_tcase(testSuite, tc_sort);
 
