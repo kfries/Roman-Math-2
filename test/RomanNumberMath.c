@@ -396,6 +396,14 @@ START_TEST(create_function_to_sort_digits_highest_to_lowest) {
    ck_assert_str_eq("I", to_string(rn));
 } END_TEST
 
+/************** Sort Test: Sorted values should return themself ***************/
+START_TEST(sort_test_already_sorted_values_return_themselves) {
+   RomanNumber rn = newRomanNumber("II");
+
+   rnSort(&rn);
+   ck_assert_str_eq("II", to_string(rn));
+} END_TEST
+
 Suite * roman_number_math_suite(void) {
    Suite *testSuite;
    TCase *tc_roman_digit, *tc_roman_number, *tc_debug, *tc_remove_sub, *tc_concat, *tc_sort;
@@ -473,6 +481,7 @@ Suite * roman_number_math_suite(void) {
    tc_sort = tcase_create("Sort Digits");
 
    tcase_add_test(tc_sort, create_function_to_sort_digits_highest_to_lowest);
+   tcase_add_test(tc_sort, sort_test_already_sorted_values_return_themselves);
 
    suite_add_tcase(testSuite, tc_sort);
 
