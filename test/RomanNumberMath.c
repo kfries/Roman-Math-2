@@ -472,6 +472,15 @@ START_TEST(consolidate_two_v_to_x) {
    ck_assert_str_eq("X", to_string(rn));
 } END_TEST
 
+/************** Consolidation: Five X should be written as One L **************/
+START_TEST(consolidate_five_x_to_l) {
+   RomanNumber rn = newRomanNumber("XXXXX");
+
+   rnConsolidate(&rn);
+
+   ck_assert_str_eq("L", to_string(rn));
+} END_TEST
+
 Suite * roman_number_math_suite(void) {
    Suite *testSuite;
    TCase *tc_roman_digit, *tc_roman_number, *tc_debug, *tc_remove_sub, *tc_concat, *tc_sort, *tc_consolidate;
@@ -563,6 +572,7 @@ Suite * roman_number_math_suite(void) {
    tcase_add_test(tc_consolidate, consolidate_like_digits_function);
    tcase_add_test(tc_consolidate, consolidate_five_i_to_v);
    tcase_add_test(tc_consolidate, consolidate_two_v_to_x);
+   tcase_add_test(tc_consolidate, consolidate_five_x_to_l);
 
    suite_add_tcase(testSuite, tc_consolidate);
 
