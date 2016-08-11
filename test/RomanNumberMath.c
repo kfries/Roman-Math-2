@@ -539,6 +539,15 @@ START_TEST(reintroduce_subtractive_viiii_should_be_ix) {
    ck_assert_str_eq("IX", to_string(rn));
 } END_TEST
 
+/*********** Reintroduce Subtractive: IIII should be written as IV ************/
+START_TEST(reintroduce_subtractive_iiii_should_be_iv) {
+   RomanNumber rn = newRomanNumber("IIII");
+
+   rnRewriteSubtractive(&rn);
+
+   ck_assert_str_eq("IV", to_string(rn));
+} END_TEST
+
 Suite * roman_number_math_suite(void) {
    Suite *testSuite;
    TCase *tc_roman_digit, *tc_roman_number, *tc_debug, *tc_remove_sub, *tc_concat, *tc_sort, *tc_consolidate;
@@ -644,6 +653,7 @@ Suite * roman_number_math_suite(void) {
 
    tcase_add_test(tc_add_sub_not, create_function_to_rewrite_in_subtractive_notation);
    tcase_add_test(tc_add_sub_not, reintroduce_subtractive_viiii_should_be_ix);
+   tcase_add_test(tc_add_sub_not, reintroduce_subtractive_iiii_should_be_iv);
 
    suite_add_tcase(testSuite, tc_add_sub_not);
 
