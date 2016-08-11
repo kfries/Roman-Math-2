@@ -149,3 +149,7 @@ void rnSort(RomanNumber *number) {
 
    return;
 }
+
+void rnConsolidate(RomanNumber *number) {
+   return;
+}

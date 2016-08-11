@@ -441,9 +441,22 @@ START_TEST(sort_test_complex_values) {
    ck_assert_str_eq("MMDDCCCCCCCCLLXXXXXXXXVVIIIIIIII", to_string(rn));
 } END_TEST
 
+/*******************************************************************************
+ * Combine like digits into larger digits where possible                       *
+ ******************************************************************************/
+
+/********* Create function to combine like digits into larger digits **********/
+START_TEST(consolidate_like_digits_function) {
+   RomanNumber rn = newRomanNumber("MDCLXVI");
+
+   rnConsolidate(&rn);
+
+   ck_assert_str_eq("MDCLXVI", to_string(rn));
+} END_TEST
+
 Suite * roman_number_math_suite(void) {
    Suite *testSuite;
-   TCase *tc_roman_digit, *tc_roman_number, *tc_debug, *tc_remove_sub, *tc_concat, *tc_sort;
+   TCase *tc_roman_digit, *tc_roman_number, *tc_debug, *tc_remove_sub, *tc_concat, *tc_sort, *tc_consolidate;
 
    testSuite = suite_create("Roman Math 2");
 
@@ -525,6 +538,13 @@ Suite * roman_number_math_suite(void) {
    tcase_add_test(tc_sort, sort_test_complex_values);
 
    suite_add_tcase(testSuite, tc_sort);
+
+   /* Testing functions to consolidate like digits*/
+   tc_consolidate = tcase_create("Sort Digits");
+
+   tcase_add_test(tc_consolidate, consolidate_like_digits_function);
+
+   suite_add_tcase(testSuite, tc_consolidate);
 
    return testSuite;
 }
