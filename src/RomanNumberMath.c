@@ -210,6 +210,7 @@ void rnRewriteSubtractive(RomanNumber *number) {
          RomanDigit digit = allowedDigits[idx];
          int modifierOffset = (idx % 2) == 0 ? 2 : 1;
          RomanDigit modifier = allowedDigits[idx-modifierOffset];
+         modifier.Value *= -1;
 
          number->Digit[number->Size++] = modifier;
          number->Digit[number->Size++] = digit;

@@ -597,7 +597,7 @@ START_TEST(reintroduce_subtractive_complex_number) {
  * Use above API to add two roman numbers                                      *
  ******************************************************************************/
 
-/************* Test a complex number with multiple substitutions **************/
+/******************** Test Add Function, start simple 1+1=2 *******************/
 START_TEST(create_function_to_add_two_numbers) {
    RomanNumber rn1 = newRomanNumber("I");
    RomanNumber rn2 = newRomanNumber("I");
@@ -608,7 +608,7 @@ START_TEST(create_function_to_add_two_numbers) {
    ck_assert_int_eq(2, to_a(sum));
 } END_TEST
 
-/************* Test a complex number with multiple substitutions **************/
+/**************** Test Add Function, using larger digits, 5+2=7 ***************/
 START_TEST(test_add_function_with_simple_math_5_plus_2_equals_7) {
    RomanNumber rn1 = newRomanNumber("V");
    RomanNumber rn2 = newRomanNumber("II");
@@ -619,7 +619,7 @@ START_TEST(test_add_function_with_simple_math_5_plus_2_equals_7) {
    ck_assert_int_eq(7, to_a(sum));
 } END_TEST
 
-/************* Test a complex number with multiple substitutions **************/
+/*** Test Add Function, using two digit numbers that require simplification ***/
 START_TEST(test_add_function_with_moderately_complex_numbers_15_plus_17_equals_32) {
    RomanNumber rn1 = newRomanNumber("XV");
    RomanNumber rn2 = newRomanNumber("XVII");
@@ -628,6 +628,17 @@ START_TEST(test_add_function_with_moderately_complex_numbers_15_plus_17_equals_3
 
    ck_assert_str_eq("XXXII",  to_string(sum));
    ck_assert_int_eq(32, to_a(sum));
+} END_TEST
+
+/***** Test Add Function with triple digit numbers, exercising full suite *****/
+START_TEST(test_add_function_with_complex_numbers_143_plus_352_equals_495) {
+   RomanNumber rn1 = newRomanNumber("CXLIII");
+   RomanNumber rn2 = newRomanNumber("CCCLII");
+
+   RomanNumber sum = rnAdd(rn1, rn2);
+
+   ck_assert_str_eq("CDXCV",  to_string(sum));
+   ck_assert_int_eq(495, to_a(sum));
 } END_TEST
 
 Suite * roman_number_math_suite(void) {
@@ -750,6 +761,7 @@ Suite * roman_number_math_suite(void) {
    tcase_add_test(tc_add, create_function_to_add_two_numbers);
    tcase_add_test(tc_add, test_add_function_with_simple_math_5_plus_2_equals_7);
    tcase_add_test(tc_add, test_add_function_with_moderately_complex_numbers_15_plus_17_equals_32);
+   tcase_add_test(tc_add, test_add_function_with_complex_numbers_143_plus_352_equals_495);
 
    suite_add_tcase(testSuite, tc_add);
 
