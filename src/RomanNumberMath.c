@@ -128,16 +128,22 @@ RomanNumber rnConcatinate(RomanNumber first, RomanNumber second) {
    return returnValue;
 }
 
-void rnSort(RomanNumber *number) {
-   int counts[NUMDIGITS];
+int *getDigitFrequencyCounts(RomanNumber *number) {
+   int *counts;
    int idx, idx2;
 
-   for (idx = 0; idx < NUMDIGITS; idx++) counts[idx] = 0;
+   counts = (int *)calloc(NUMDIGITS, sizeof(int));
 
    for (idx = 0; idx < NUMDIGITS; idx++)
       for (idx2 = 0; idx2 < number->Size; idx2++)
          if (allowedDigits[idx].Symbol == number->Digit[idx2].Symbol)
             counts[idx]++;
+
+   return counts;
+}
+
+void rewriteNumberFromFrequencyCounts(RomanNumber *number, int *counts) {
+   int idx;
 
    number->Size = 0;
 
@@ -150,16 +156,16 @@ void rnSort(RomanNumber *number) {
    return;
 }
 
+void rnSort(RomanNumber *number) {
+   int *counts = getDigitFrequencyCounts(number);
+   rewriteNumberFromFrequencyCounts(number, counts);
+
+   return;
+}
+
 void rnConsolidate(RomanNumber *number) {
-   int counts[NUMDIGITS];
-   int idx, idx2;
-
-   for (idx = 0; idx < NUMDIGITS; idx++) counts[idx] = 0;
-
-   for (idx = 0; idx < NUMDIGITS; idx++)
-      for (idx2 = 0; idx2 < number->Size; idx2++)
-         if (allowedDigits[idx].Symbol == number->Digit[idx2].Symbol)
-            counts[idx]++;
+   int *counts = getDigitFrequencyCounts(number);
+   int idx;
 
    for (idx = 0; idx < NUMDIGITS; idx++)
       while (counts[idx] >= allowedDigits[idx].NextValue) {
@@ -167,13 +173,7 @@ void rnConsolidate(RomanNumber *number) {
          counts[idx] -= allowedDigits[idx].NextValue;
       }
 
-   number->Size = 0;
-
-   for (idx = (NUMDIGITS-1); idx >= 0; idx--)
-      while (counts[idx] > 0) {
-         number->Digit[number->Size++] = allowedDigits[idx];
-         counts[idx]--;
-      }
+   rewriteNumberFromFrequencyCounts(number, counts);
 
    return;
 }
