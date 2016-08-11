@@ -481,6 +481,15 @@ START_TEST(consolidate_five_x_to_l) {
    ck_assert_str_eq("L", to_string(rn));
 } END_TEST
 
+/*************** Consolidation: Two L should be written as One C **************/
+START_TEST(consolidate_two_l_to_c) {
+   RomanNumber rn = newRomanNumber("LL");
+
+   rnConsolidate(&rn);
+
+   ck_assert_str_eq("C", to_string(rn));
+} END_TEST
+
 Suite * roman_number_math_suite(void) {
    Suite *testSuite;
    TCase *tc_roman_digit, *tc_roman_number, *tc_debug, *tc_remove_sub, *tc_concat, *tc_sort, *tc_consolidate;
@@ -573,6 +582,7 @@ Suite * roman_number_math_suite(void) {
    tcase_add_test(tc_consolidate, consolidate_five_i_to_v);
    tcase_add_test(tc_consolidate, consolidate_two_v_to_x);
    tcase_add_test(tc_consolidate, consolidate_five_x_to_l);
+   tcase_add_test(tc_consolidate, consolidate_two_l_to_c);
 
    suite_add_tcase(testSuite, tc_consolidate);
 
