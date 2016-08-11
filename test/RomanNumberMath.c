@@ -593,10 +593,25 @@ START_TEST(reintroduce_subtractive_complex_number) {
    ck_assert_str_eq("MMMCMXCVIII", to_string(rn));
 } END_TEST
 
+/*******************************************************************************
+ * Use above API to add two roman numbers                                      *
+ ******************************************************************************/
+
+/************* Test a complex number with multiple substitutions **************/
+START_TEST(create_function_to_add_two_numbers) {
+   RomanNumber rn1 = newRomanNumber("I");
+   RomanNumber rn2 = newRomanNumber("I");
+
+   RomanNumber sum = rnAdd(rn1, rn2);
+
+   ck_assert_str_eq("II",  to_string(sum));
+   ck_assert_int_eq(2, to_a(sum));
+} END_TEST
+
 Suite * roman_number_math_suite(void) {
    Suite *testSuite;
    TCase *tc_roman_digit, *tc_roman_number, *tc_debug, *tc_remove_sub, *tc_concat, *tc_sort, *tc_consolidate;
-   TCase *tc_add_sub_not;
+   TCase *tc_add_sub_not, *tc_add;
 
    testSuite = suite_create("Roman Math 2");
 
@@ -706,6 +721,13 @@ Suite * roman_number_math_suite(void) {
    tcase_add_test(tc_add_sub_not, reintroduce_subtractive_complex_number);
 
    suite_add_tcase(testSuite, tc_add_sub_not);
+
+   /* Testing functions to rewrite the number using subtractive notation*/
+   tc_add = tcase_create("Rewrite With Subractive Notation");
+
+   tcase_add_test(tc_add, create_function_to_add_two_numbers);
+
+   suite_add_tcase(testSuite, tc_add);
 
    return testSuite;
 }

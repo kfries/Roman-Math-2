@@ -219,3 +219,16 @@ void rnRewriteSubtractive(RomanNumber *number) {
    return;
 }
 
+RomanNumber rnAdd(RomanNumber number1, RomanNumber number2) {
+   RomanNumber returnValue;
+
+   rnRemoveSubtractive(&number1);
+   rnRemoveSubtractive(&number2);
+
+   returnValue = rnConcatinate(number1, number2);
+   rnSort(&returnValue);
+   rnConsolidate(&returnValue);
+   rnRewriteSubtractive(&returnValue);
+
+   return returnValue;
+}
