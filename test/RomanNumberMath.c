@@ -499,6 +499,24 @@ START_TEST(consolidate_five_c_to_d) {
    ck_assert_str_eq("D", to_string(rn));
 } END_TEST
 
+/*************** Consolidation: Two D should be written as One M **************/
+START_TEST(consolidate_two_d_to_m) {
+   RomanNumber rn = newRomanNumber("DD");
+
+   rnConsolidate(&rn);
+
+   ck_assert_str_eq("M", to_string(rn));
+} END_TEST
+
+/********* Consolidate a complex number with a several consolidations *********/
+START_TEST(consolidate_complex_number) {
+   RomanNumber rn = newRomanNumber("MMDDCCCCCCCCLLXXXXXXXXVVIIIIIIII");
+
+   rnConsolidate(&rn);
+
+   ck_assert_str_eq("MMMDCCCCLXXXXVIII", to_string(rn));
+} END_TEST
+
 Suite * roman_number_math_suite(void) {
    Suite *testSuite;
    TCase *tc_roman_digit, *tc_roman_number, *tc_debug, *tc_remove_sub, *tc_concat, *tc_sort, *tc_consolidate;
@@ -593,6 +611,8 @@ Suite * roman_number_math_suite(void) {
    tcase_add_test(tc_consolidate, consolidate_five_x_to_l);
    tcase_add_test(tc_consolidate, consolidate_two_l_to_c);
    tcase_add_test(tc_consolidate, consolidate_five_c_to_d);
+   tcase_add_test(tc_consolidate, consolidate_two_d_to_m);
+   tcase_add_test(tc_consolidate, consolidate_complex_number);
 
    suite_add_tcase(testSuite, tc_consolidate);
 
