@@ -490,6 +490,15 @@ START_TEST(consolidate_two_l_to_c) {
    ck_assert_str_eq("C", to_string(rn));
 } END_TEST
 
+/************** Consolidation: Five C should be written as One D **************/
+START_TEST(consolidate_five_c_to_d) {
+   RomanNumber rn = newRomanNumber("CCCCC");
+
+   rnConsolidate(&rn);
+
+   ck_assert_str_eq("D", to_string(rn));
+} END_TEST
+
 Suite * roman_number_math_suite(void) {
    Suite *testSuite;
    TCase *tc_roman_digit, *tc_roman_number, *tc_debug, *tc_remove_sub, *tc_concat, *tc_sort, *tc_consolidate;
@@ -583,6 +592,7 @@ Suite * roman_number_math_suite(void) {
    tcase_add_test(tc_consolidate, consolidate_two_v_to_x);
    tcase_add_test(tc_consolidate, consolidate_five_x_to_l);
    tcase_add_test(tc_consolidate, consolidate_two_l_to_c);
+   tcase_add_test(tc_consolidate, consolidate_five_c_to_d);
 
    suite_add_tcase(testSuite, tc_consolidate);
 
