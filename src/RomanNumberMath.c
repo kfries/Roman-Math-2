@@ -129,5 +129,23 @@ RomanNumber rnConcatinate(RomanNumber first, RomanNumber second) {
 }
 
 void rnSort(RomanNumber *number) {
+   int counts[NUMDIGITS];
+   int idx, idx2;
+
+   for (idx = 0; idx < NUMDIGITS; idx++) counts[idx] = 0;
+
+   for (idx = 0; idx < NUMDIGITS; idx++)
+      for (idx2 = 0; idx2 < number->Size; idx2++)
+         if (allowedDigits[idx].Symbol == number->Digit[idx2].Symbol)
+            counts[idx]++;
+
+   number->Size = 0;
+
+   for (idx = (NUMDIGITS-1); idx >= 0; idx--)
+      while (counts[idx] > 0) {
+         number->Digit[number->Size++] = allowedDigits[idx];
+         counts[idx]--;
+      }
+
    return;
 }

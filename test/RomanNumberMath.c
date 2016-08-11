@@ -401,7 +401,28 @@ START_TEST(sort_test_already_sorted_values_return_themselves) {
    RomanNumber rn = newRomanNumber("II");
 
    rnSort(&rn);
+
    ck_assert_str_eq("II", to_string(rn));
+} END_TEST
+
+/************************ Sort Test: Sort simple values ***********************/
+START_TEST(sort_test_small_simple_value) {
+   RomanNumber rn = newRomanNumber("IVI");
+
+   /* Need fixup due to testing method.  when smaller digits appear before larger ones
+      the library automaticly marks them as negative values which will cause incorrect
+      sorts.  When the algorithm runs, these negative values will already be taken care
+      of, but the digits may be out of order.  We will remove the negative values here
+      so that the values will sort the same way they will when the full algorithm will */
+
+   int idx;
+   for (idx = 0; idx < rn.Size; idx++)
+      if (rn.Digit[idx].Value < 0)
+         rn.Digit[idx].Value *= -1;
+
+   rnSort(&rn);
+
+   ck_assert_str_eq("VII", to_string(rn));
 } END_TEST
 
 Suite * roman_number_math_suite(void) {
@@ -482,6 +503,7 @@ Suite * roman_number_math_suite(void) {
 
    tcase_add_test(tc_sort, create_function_to_sort_digits_highest_to_lowest);
    tcase_add_test(tc_sort, sort_test_already_sorted_values_return_themselves);
+   tcase_add_test(tc_sort, sort_test_small_simple_value);
 
    suite_add_tcase(testSuite, tc_sort);
 
