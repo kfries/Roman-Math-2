@@ -414,6 +414,15 @@ START_TEST(sort_test_small_simple_value) {
    ck_assert_str_eq("VII", to_string(rn));
 } END_TEST
 
+/************* Sort Test: Sort Resulting in a non-standard value **************/
+START_TEST(sort_test_resulting_in_non_standard_value) {
+   RomanNumber rn = newRomanNumber("IXVIIII");
+
+   rnSort(&rn);
+
+   ck_assert_str_eq("XVIIIII", to_string(rn));
+} END_TEST
+
 Suite * roman_number_math_suite(void) {
    Suite *testSuite;
    TCase *tc_roman_digit, *tc_roman_number, *tc_debug, *tc_remove_sub, *tc_concat, *tc_sort;
@@ -493,6 +502,7 @@ Suite * roman_number_math_suite(void) {
    tcase_add_test(tc_sort, create_function_to_sort_digits_highest_to_lowest);
    tcase_add_test(tc_sort, sort_test_already_sorted_values_return_themselves);
    tcase_add_test(tc_sort, sort_test_small_simple_value);
+   tcase_add_test(tc_sort, sort_test_resulting_in_non_standard_value);
 
    suite_add_tcase(testSuite, tc_sort);
 
