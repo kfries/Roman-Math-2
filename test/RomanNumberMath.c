@@ -517,9 +517,23 @@ START_TEST(consolidate_complex_number) {
    ck_assert_str_eq("MMMDCCCCLXXXXVIII", to_string(rn));
 } END_TEST
 
+/*******************************************************************************
+ * Combine like digits into larger digits where possible                       *
+ ******************************************************************************/
+
+/******* Create a function to rewrite digits using Subtractive Notation *******/
+START_TEST(create_function_to_rewrite_in_subtractive_notation) {
+   RomanNumber rn = newRomanNumber("MDCLXVI");
+
+   rnRewriteSubtractive(&rn);
+
+   ck_assert_str_eq("MDCLXVI", to_string(rn));
+} END_TEST
+
 Suite * roman_number_math_suite(void) {
    Suite *testSuite;
    TCase *tc_roman_digit, *tc_roman_number, *tc_debug, *tc_remove_sub, *tc_concat, *tc_sort, *tc_consolidate;
+   TCase *tc_add_sub_not;
 
    testSuite = suite_create("Roman Math 2");
 
@@ -615,6 +629,13 @@ Suite * roman_number_math_suite(void) {
    tcase_add_test(tc_consolidate, consolidate_complex_number);
 
    suite_add_tcase(testSuite, tc_consolidate);
+
+   /* Testing functions to rewrite the number using subtractive notation*/
+   tc_add_sub_not = tcase_create("Rewrite With Subractive Notation");
+
+   tcase_add_test(tc_add_sub_not, create_function_to_rewrite_in_subtractive_notation);
+
+   suite_add_tcase(testSuite, tc_add_sub_not);
 
    return testSuite;
 }

@@ -24,5 +24,6 @@ void rnRemoveSubtractive(RomanNumber *);
 RomanNumber rnConcatinate(RomanNumber, RomanNumber);
 void rnSort(RomanNumber *);
 void rnConsolidate(RomanNumber *);
+void rnRewriteSubtractive(RomanNumber *);
 
 #endif

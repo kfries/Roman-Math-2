@@ -177,3 +177,8 @@ void rnConsolidate(RomanNumber *number) {
 
    return;
 }
+
+void rnRewriteSubtractive(RomanNumber *number) {
+   return;
+}
+
