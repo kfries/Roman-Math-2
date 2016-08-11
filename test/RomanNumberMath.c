@@ -566,6 +566,15 @@ START_TEST(reintroduce_subtractive_lxxxx_should_be_xc) {
    ck_assert_str_eq("XC", to_string(rn));
 } END_TEST
 
+/*********** Reintroduce Subtractive: CCCC should be written as CD ************/
+START_TEST(reintroduce_subtractive_cccc_should_be_cd) {
+   RomanNumber rn = newRomanNumber("CCCC");
+
+   rnRewriteSubtractive(&rn);
+
+   ck_assert_str_eq("CD", to_string(rn));
+} END_TEST
+
 Suite * roman_number_math_suite(void) {
    Suite *testSuite;
    TCase *tc_roman_digit, *tc_roman_number, *tc_debug, *tc_remove_sub, *tc_concat, *tc_sort, *tc_consolidate;
@@ -674,6 +683,7 @@ Suite * roman_number_math_suite(void) {
    tcase_add_test(tc_add_sub_not, reintroduce_subtractive_iiii_should_be_iv);
    tcase_add_test(tc_add_sub_not, reintroduce_subtractive_xxxx_should_be_xl);
    tcase_add_test(tc_add_sub_not, reintroduce_subtractive_lxxxx_should_be_xc);
+   tcase_add_test(tc_add_sub_not, reintroduce_subtractive_cccc_should_be_cd);
 
    suite_add_tcase(testSuite, tc_add_sub_not);
 
