@@ -776,6 +776,17 @@ START_TEST(subtraction_10_minus_1_equals_9_subtractive_result) {
    ck_assert_int_eq(9, to_a(difference));
 } END_TEST
 
+/********************** Test Subtract Function, complex results *********************/
+START_TEST(subtraction_complex_result) {
+   RomanNumber rn1 = newRomanNumber("CL");
+   RomanNumber rn2 = newRomanNumber("LX");
+
+   RomanNumber difference = rnSubtract(rn1, rn2);
+
+   ck_assert_str_eq("XC",  to_string(difference));
+   ck_assert_int_eq(90, to_a(difference));
+} END_TEST
+
 Suite * roman_number_math_suite(void) {
    Suite *testSuite;
    TCase *tc_roman_digit, *tc_roman_number, *tc_debug, *tc_remove_sub, *tc_concat, *tc_sort, *tc_consolidate;
@@ -926,6 +937,7 @@ Suite * roman_number_math_suite(void) {
    tcase_add_test(tc_subtract, create_function_to_subtract_two_numbers);
    tcase_add_test(tc_subtract, subtraction_10_minus_5_equals_5);
    tcase_add_test(tc_subtract, subtraction_10_minus_1_equals_9_subtractive_result);
+   tcase_add_test(tc_subtract, subtraction_complex_result);
 
    suite_add_tcase(testSuite, tc_subtract);
 
