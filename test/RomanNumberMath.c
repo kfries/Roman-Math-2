@@ -738,10 +738,26 @@ START_TEST(create_function_to_breakdown_digit_first_has_digit_multiple_levels_hi
    ck_assert_str_eq("VI",  to_string(rn2));
 } END_TEST
 
+
+/*******************************************************************************
+ * Use above API to subtract two roman numbers                                 *
+ ******************************************************************************/
+
+/******************** Test Add Function, start simple 1+1=2 *******************/
+START_TEST(create_function_to_subtract_two_numbers) {
+   RomanNumber rn1 = newRomanNumber("II");
+   RomanNumber rn2 = newRomanNumber("I");
+
+   RomanNumber difference = rnSubtract(rn1, rn2);
+
+   ck_assert_str_eq("I",  to_string(difference));
+   ck_assert_int_eq(1, to_a(difference));
+} END_TEST
+
 Suite * roman_number_math_suite(void) {
    Suite *testSuite;
    TCase *tc_roman_digit, *tc_roman_number, *tc_debug, *tc_remove_sub, *tc_concat, *tc_sort, *tc_consolidate;
-   TCase *tc_add_sub_not, *tc_add, *tc_dups, *tc_breakdown;
+   TCase *tc_add_sub_not, *tc_add, *tc_dups, *tc_breakdown, *tc_subtract;
 
    testSuite = suite_create("Roman Math 2");
 
@@ -881,6 +897,13 @@ Suite * roman_number_math_suite(void) {
    tcase_add_test(tc_breakdown, create_function_to_breakdown_digit_first_has_digit_multiple_levels_higher);
 
    suite_add_tcase(testSuite, tc_breakdown);
+
+   /* Subtraction */
+   tc_subtract = tcase_create("Rewrite With Subractive Notation");
+
+   tcase_add_test(tc_subtract, create_function_to_subtract_two_numbers);
+
+   suite_add_tcase(testSuite, tc_subtract);
 
    return testSuite;
 }

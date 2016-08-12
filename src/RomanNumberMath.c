@@ -277,3 +277,21 @@ RomanNumber rnAdd(RomanNumber number1, RomanNumber number2) {
 
    return returnValue;
 }
+
+RomanNumber rnSubtract(RomanNumber number1, RomanNumber number2) {
+   rnRemoveSubtractive(&number1);
+   rnRemoveSubtractive(&number2);
+
+   rnEliminateDuplicates(&number1, &number2);
+
+   while (number2.Size > 0) {
+      rnBreakdownDigit(&number1, &number2);
+      rnEliminateDuplicates(&number1, &number2);
+   }
+
+   rnConsolidate(&number1);
+   rnRewriteSubtractive(&number1);
+
+   return number1;
+}
+

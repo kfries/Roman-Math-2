@@ -30,4 +30,5 @@ void rnEliminateDuplicates(RomanNumber *, RomanNumber *);
 void rnBreakdownDigit(RomanNumber *, RomanNumber *);
 
 RomanNumber rnAdd(RomanNumber, RomanNumber);
+RomanNumber rnSubtract(RomanNumber, RomanNumber);
 #endif
