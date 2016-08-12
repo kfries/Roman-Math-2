@@ -743,7 +743,7 @@ START_TEST(create_function_to_breakdown_digit_first_has_digit_multiple_levels_hi
  * Use above API to subtract two roman numbers                                 *
  ******************************************************************************/
 
-/******************** Test Add Function, start simple 2-1=1 *******************/
+/******************** Test Subtract Function, start simple 2-1=1 *******************/
 START_TEST(create_function_to_subtract_two_numbers) {
    RomanNumber rn1 = newRomanNumber("II");
    RomanNumber rn2 = newRomanNumber("I");
@@ -754,7 +754,7 @@ START_TEST(create_function_to_subtract_two_numbers) {
    ck_assert_int_eq(1, to_a(difference));
 } END_TEST
 
-/******************** Test Add Function, start simple 10-5=5 *******************/
+/******************** Test Subtract Function, start simple 10-5=5 *******************/
 START_TEST(subtraction_10_minus_5_equals_5) {
    RomanNumber rn1 = newRomanNumber("X");
    RomanNumber rn2 = newRomanNumber("V");
@@ -763,6 +763,17 @@ START_TEST(subtraction_10_minus_5_equals_5) {
 
    ck_assert_str_eq("V",  to_string(difference));
    ck_assert_int_eq(5, to_a(difference));
+} END_TEST
+
+/******************** Test Subtract Function, start simple 10-1=9 *******************/
+START_TEST(subtraction_10_minus_1_equals_9_subtractive_result) {
+   RomanNumber rn1 = newRomanNumber("X");
+   RomanNumber rn2 = newRomanNumber("I");
+
+   RomanNumber difference = rnSubtract(rn1, rn2);
+
+   ck_assert_str_eq("IX",  to_string(difference));
+   ck_assert_int_eq(9, to_a(difference));
 } END_TEST
 
 Suite * roman_number_math_suite(void) {
@@ -914,6 +925,7 @@ Suite * roman_number_math_suite(void) {
 
    tcase_add_test(tc_subtract, create_function_to_subtract_two_numbers);
    tcase_add_test(tc_subtract, subtraction_10_minus_5_equals_5);
+   tcase_add_test(tc_subtract, subtraction_10_minus_1_equals_9_subtractive_result);
 
    suite_add_tcase(testSuite, tc_subtract);
 
