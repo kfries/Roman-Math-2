@@ -678,6 +678,17 @@ START_TEST(test_eleminate_duplictes_where_second_is_subset_of_first) {
    ck_assert_str_eq("",  to_string(rn2));
 } END_TEST
 
+/* Some of the values in the Second Value exit in the First but not all of them */
+START_TEST(test_eleminate_duplictes_where_only_some_of_second_digits_exist_in_first) {
+   RomanNumber rn1 = newRomanNumber("LXI");
+   RomanNumber rn2 = newRomanNumber("LVI");
+
+   rnEliminateDuplicates(&rn1, &rn2);
+
+   ck_assert_str_eq("X",  to_string(rn1));
+   ck_assert_str_eq("V",  to_string(rn2));
+} END_TEST
+
 Suite * roman_number_math_suite(void) {
    Suite *testSuite;
    TCase *tc_roman_digit, *tc_roman_number, *tc_debug, *tc_remove_sub, *tc_concat, *tc_sort, *tc_consolidate;
@@ -808,6 +819,7 @@ Suite * roman_number_math_suite(void) {
    tcase_add_test(tc_dups, create_function_to_erase_duplicate_digits_between_two_values);
    tcase_add_test(tc_dups, test_eleminate_duplictes_where_both_values_are_the_same);
    tcase_add_test(tc_dups, test_eleminate_duplictes_where_second_is_subset_of_first);
+   tcase_add_test(tc_dups, test_eleminate_duplictes_where_only_some_of_second_digits_exist_in_first);
 
    suite_add_tcase(testSuite, tc_dups);
 
