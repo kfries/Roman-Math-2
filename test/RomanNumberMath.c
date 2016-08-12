@@ -656,6 +656,17 @@ START_TEST(create_function_to_erase_duplicate_digits_between_two_values) {
    ck_assert_str_eq("XVI",  to_string(rn2));
 } END_TEST
 
+/******** Test Elimination of Duplicates when both values are the same ********/
+START_TEST(test_eleminate_duplictes_where_both_values_are_the_same) {
+   RomanNumber rn1 = newRomanNumber("II");
+   RomanNumber rn2 = newRomanNumber("II");
+
+   rnEliminateDuplicates(&rn1, &rn2);
+
+   ck_assert_str_eq("",  to_string(rn1));
+   ck_assert_str_eq("",  to_string(rn2));
+} END_TEST
+
 Suite * roman_number_math_suite(void) {
    Suite *testSuite;
    TCase *tc_roman_digit, *tc_roman_number, *tc_debug, *tc_remove_sub, *tc_concat, *tc_sort, *tc_consolidate;
@@ -784,6 +795,7 @@ Suite * roman_number_math_suite(void) {
    tc_dups = tcase_create("Rewrite With Subractive Notation");
 
    tcase_add_test(tc_dups, create_function_to_erase_duplicate_digits_between_two_values);
+   tcase_add_test(tc_dups, test_eleminate_duplictes_where_both_values_are_the_same);
 
    suite_add_tcase(testSuite, tc_dups);
 

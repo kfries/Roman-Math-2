@@ -221,6 +221,19 @@ void rnRewriteSubtractive(RomanNumber *number) {
 }
 
 void rnEliminateDuplicates(RomanNumber *number1, RomanNumber *number2) {
+   int *counts1 = getDigitFrequencyCounts(number1);
+   int *counts2 = getDigitFrequencyCounts(number2);
+   int idx;
+
+   for (idx = 0; idx < NUMDIGITS; idx++) {
+      int dups = counts1[idx] < counts2[idx] ? counts1[idx] : counts2[idx];
+      counts1[idx] -= dups;
+      counts2[idx] -= dups;
+   }
+
+   rewriteNumberFromFrequencyCounts(number1, counts1);
+   rewriteNumberFromFrequencyCounts(number2, counts2);
+
    return;
 }
 
