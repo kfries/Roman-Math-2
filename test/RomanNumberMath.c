@@ -716,6 +716,17 @@ START_TEST(create_function_to_breakdown_digit) {
    ck_assert_str_eq("XVI",  to_string(rn2));
 } END_TEST
 
+/********** First Value has digit one greater than largest in Second **********/
+START_TEST(create_function_to_breakdown_digit_first_has_digit_one_larger) {
+   RomanNumber rn1 = newRomanNumber("LX");
+   RomanNumber rn2 = newRomanNumber("VI");
+
+   rnBreakdownDigit(&rn1, &rn2);
+
+   ck_assert_str_eq("LVV",  to_string(rn1));
+   ck_assert_str_eq("VI",  to_string(rn2));
+} END_TEST
+
 Suite * roman_number_math_suite(void) {
    Suite *testSuite;
    TCase *tc_roman_digit, *tc_roman_number, *tc_debug, *tc_remove_sub, *tc_concat, *tc_sort, *tc_consolidate;
@@ -855,6 +866,7 @@ Suite * roman_number_math_suite(void) {
    tc_breakdown = tcase_create("Rewrite With Subractive Notation");
 
    tcase_add_test(tc_breakdown, create_function_to_breakdown_digit);
+   tcase_add_test(tc_breakdown, create_function_to_breakdown_digit_first_has_digit_one_larger);
 
    suite_add_tcase(testSuite, tc_breakdown);
 
