@@ -220,6 +220,10 @@ void rnRewriteSubtractive(RomanNumber *number) {
    return;
 }
 
+void rnEliminateDuplicates(RomanNumber *number1, RomanNumber *number2) {
+   return;
+}
+
 RomanNumber rnAdd(RomanNumber number1, RomanNumber number2) {
    RomanNumber returnValue;
 

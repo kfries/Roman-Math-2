@@ -641,10 +641,25 @@ START_TEST(test_add_function_with_complex_numbers_143_plus_352_equals_495) {
    ck_assert_int_eq(495, to_a(sum));
 } END_TEST
 
+/*******************************************************************************
+ * Cancel Redundant digits between two values                                  *
+ ******************************************************************************/
+
+/******** Create a function to eliminate duplicated between two values ********/
+START_TEST(create_function_to_erase_duplicate_digits_between_two_values) {
+   RomanNumber rn1 = newRomanNumber("MDCL");
+   RomanNumber rn2 = newRomanNumber("XVI");
+
+   rnEliminateDuplicates(&rn1, &rn2);
+
+   ck_assert_str_eq("MDCL",  to_string(rn1));
+   ck_assert_str_eq("XVI",  to_string(rn2));
+} END_TEST
+
 Suite * roman_number_math_suite(void) {
    Suite *testSuite;
    TCase *tc_roman_digit, *tc_roman_number, *tc_debug, *tc_remove_sub, *tc_concat, *tc_sort, *tc_consolidate;
-   TCase *tc_add_sub_not, *tc_add;
+   TCase *tc_add_sub_not, *tc_add, *tc_dups;
 
    testSuite = suite_create("Roman Math 2");
 
@@ -764,6 +779,13 @@ Suite * roman_number_math_suite(void) {
    tcase_add_test(tc_add, test_add_function_with_complex_numbers_143_plus_352_equals_495);
 
    suite_add_tcase(testSuite, tc_add);
+
+   /* Remove duplicate values between two different values */
+   tc_dups = tcase_create("Rewrite With Subractive Notation");
+
+   tcase_add_test(tc_dups, create_function_to_erase_duplicate_digits_between_two_values);
+
+   suite_add_tcase(testSuite, tc_dups);
 
    return testSuite;
 }

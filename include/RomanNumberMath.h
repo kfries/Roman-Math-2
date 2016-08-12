@@ -26,5 +26,7 @@ void rnSort(RomanNumber *);
 void rnConsolidate(RomanNumber *);
 void rnRewriteSubtractive(RomanNumber *);
 
+void rnEliminateDuplicates(RomanNumber *, RomanNumber *);
+
 RomanNumber rnAdd(RomanNumber, RomanNumber);
 #endif
