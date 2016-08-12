@@ -700,10 +700,26 @@ START_TEST(test_eleminate_duplictes_where_no_digits_are_in_common) {
    ck_assert_str_eq("VI",  to_string(rn2));
 } END_TEST
 
+/*******************************************************************************
+ * Breakdown one digit in the first value, that is larger than the largest in  *
+ * the second value                                                            *
+ ******************************************************************************/
+
+/* Create function to break down digit in first value larger than largest digit in second value */
+START_TEST(create_function_to_breakdown_digit) {
+   RomanNumber rn1 = newRomanNumber("MDCL");
+   RomanNumber rn2 = newRomanNumber("XVI");
+
+   rnBreakdownDigit(&rn1, &rn2);
+
+   ck_assert_str_eq("MDCXXXXX",  to_string(rn1));
+   ck_assert_str_eq("XVI",  to_string(rn2));
+} END_TEST
+
 Suite * roman_number_math_suite(void) {
    Suite *testSuite;
    TCase *tc_roman_digit, *tc_roman_number, *tc_debug, *tc_remove_sub, *tc_concat, *tc_sort, *tc_consolidate;
-   TCase *tc_add_sub_not, *tc_add, *tc_dups;
+   TCase *tc_add_sub_not, *tc_add, *tc_dups, *tc_breakdown;
 
    testSuite = suite_create("Roman Math 2");
 
@@ -834,6 +850,13 @@ Suite * roman_number_math_suite(void) {
    tcase_add_test(tc_dups, test_eleminate_duplictes_where_no_digits_are_in_common);
 
    suite_add_tcase(testSuite, tc_dups);
+
+   /* Remove duplicate values between two different values */
+   tc_breakdown = tcase_create("Rewrite With Subractive Notation");
+
+   tcase_add_test(tc_breakdown, create_function_to_breakdown_digit);
+
+   suite_add_tcase(testSuite, tc_breakdown);
 
    return testSuite;
 }

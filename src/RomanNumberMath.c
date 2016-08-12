@@ -237,6 +237,33 @@ void rnEliminateDuplicates(RomanNumber *number1, RomanNumber *number2) {
    return;
 }
 
+void rnBreakdownDigit(RomanNumber *number1, RomanNumber *number2) {
+   int *counts1 = getDigitFrequencyCounts(number1);
+   int *counts2 = getDigitFrequencyCounts(number2);
+   int idx;
+
+   idx = NUMDIGITS;
+   /* find largest digit in number2 */
+   while (idx) {
+      if (counts2[idx] > 0) break;
+      idx--;
+   }
+   idx++;
+
+   /* find next largest digit than that in number 1 */
+   while (idx < NUMDIGITS) {
+      if (counts1[idx] > 0) break;
+      idx++;
+   }
+
+   counts1[idx]--;
+   counts1[idx-1] += allowedDigits[idx-1].NextValue;
+
+   rewriteNumberFromFrequencyCounts(number1, counts1);
+
+   return;
+}
+
 RomanNumber rnAdd(RomanNumber number1, RomanNumber number2) {
    RomanNumber returnValue;
 

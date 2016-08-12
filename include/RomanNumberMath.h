@@ -27,6 +27,7 @@ void rnConsolidate(RomanNumber *);
 void rnRewriteSubtractive(RomanNumber *);
 
 void rnEliminateDuplicates(RomanNumber *, RomanNumber *);
+void rnBreakdownDigit(RomanNumber *, RomanNumber *);
 
 RomanNumber rnAdd(RomanNumber, RomanNumber);
 #endif
