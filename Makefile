@@ -2,6 +2,7 @@ CC = gcc
 CFLAGS = -Wall -I./include
 LIBS = -L./lib
 
+$(shell mkdir -p bin lib obj)
 .PHONY: test clean
 
 all: lib/libRomanNumberMath.so lib/libRomanNumberMathDebug.so bin/RomanNumberMathTest
